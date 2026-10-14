@@ -85,10 +85,13 @@ CAMS=cam2=bedroom python3 collect_frames.py --interval 30   # collect a night of
 ```
 
 **2. Label them (fast, AI-assisted).** Pre-box with whatever model you have (first
-round: stock `yolo11s.pt`), then just verify:
+round: stock `yolo11s.pt`), then just verify. `prelabel.py` reads frames/labels from
+`../labeling/` (where the labeling tools keep them) and writes its suggestions and
+review set back there — override with the `FRAMES`/`LABELS`/`PRELABELS`/`REVIEW`
+env vars if your data lives elsewhere:
 ```bash
 cd ../training
-python3 prelabel.py --model yolo11s.pt          # writes prelabels/ + a de-duped frames/review/
+python3 prelabel.py --model yolo11s.pt          # -> ../labeling/prelabels/ + ../labeling/frames/review/
 cd ../labeling
 FRAMES_DIR=frames/review python3 label_server.py
 # open http://localhost:1987/  → orange dashed box = AI guess: confirm, nudge, or redraw.

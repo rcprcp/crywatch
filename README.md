@@ -242,6 +242,11 @@ Please read **[SECURITY.md](SECURITY.md)**. Short version: never commit secrets
 (camera passwords, `.conf`/`.key`, tokens, DBs — all gitignored), keep real config
 local (`go2rtc.yaml`, `.env`), and reach everything over a VPN, not a port-forward.
 
+The viewer treats `?cams=`/`?labels=` as untrusted input: labels are rendered as
+**text**, never injected as HTML, so a crafted `multi.html` link can't run script in
+your browser. (The detector control API on `:1986` is still unauthenticated — keep it
+on your LAN or VPN.)
+
 ## Notes
 
 Built as a weekend project, largely with [Claude Code](https://www.anthropic.com/claude-code) —

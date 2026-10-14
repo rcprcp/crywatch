@@ -205,7 +205,7 @@
     panel.innerHTML = `
       <div class="media">
         <video autoplay muted playsinline></video>
-        <div class="label">${label}</div>
+        <div class="label"></div>
         <div class="zoomlbl">100%</div>
         <div class="crybanner">👶 Baby may be crying</div>
         <div class="status">connecting…</div>
@@ -219,6 +219,9 @@
         <button data-act="fs" title="Fullscreen">⛶</button>
         <button data-act="close" class="closebtn" title="Close">✕</button>
       </div>`;
+    // Labels come from the ?labels= query param — set as TEXT, never HTML, so a
+    // crafted link can't inject markup into the page.
+    panel.querySelector('.label').textContent = label;
     const v = panel.querySelector('video');
     const media = panel.querySelector('.media');
     const status = panel.querySelector('.status');

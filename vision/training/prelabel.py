@@ -24,9 +24,13 @@ import numpy as np
 import cv2
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-FRAMES = os.environ.get("FRAMES", os.path.join(HERE, "frames"))
-LABELS = os.environ.get("LABELS", os.path.join(HERE, "labels"))
-PRELABELS = os.environ.get("PRELABELS", os.path.join(HERE, "prelabels"))
+# Frames/labels/prelabels live in the labeling module (collect_frames.py and
+# label_server.py write there), so default to ../labeling/*. Override with the
+# FRAMES/LABELS/PRELABELS/REVIEW env vars when your data lives elsewhere.
+LABELING = os.path.normpath(os.path.join(HERE, "..", "labeling"))
+FRAMES = os.environ.get("FRAMES", os.path.join(LABELING, "frames"))
+LABELS = os.environ.get("LABELS", os.path.join(LABELING, "labels"))
+PRELABELS = os.environ.get("PRELABELS", os.path.join(LABELING, "prelabels"))
 REVIEW = os.environ.get("REVIEW", os.path.join(FRAMES, "review"))
 
 
